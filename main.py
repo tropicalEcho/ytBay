@@ -19,13 +19,20 @@ def changePath(newCurrentDirectory):
 ffmpegPath = shutil.which('ffmpeg') or r"C:\Program Files\ffmpeg\bin\ffmpeg.exe"
 
 manual = """
-CLEAR | CLS                - CLEARS SCREEN
-HELP                       - PRINTS THIS
-<URL>                      - DOWNLOAD THE GIVEN URL
-    <--VIDEO | --AUDIO | -V | -A> - SPECIFIES THE FORMAT
-EXIT | QUIT                - KILLS THE PROGRAM
-CHDIR | CD <NEW DIRECTORY> - CHANGE DOWNLOAD PATH
+COMMANDS:
+  HELP        - Prints this.
+  CLEAR | CLS - Clears screen.
+  EXIT | QUIT - Kills ytBay.
+
+DOWNLOAD:
+  <URL>            - Download the given URL.
+      -V | --VIDEO - Download as video.
+      -A | --AUDIO - Download as audio.
+
+FILE MANAGEMENT:
+  CHDIR | CD <DIRECTORY> - Change the download path.
 """
+
 
 def progressBar(d):
     if d['status'] == 'downloading':
