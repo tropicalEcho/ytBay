@@ -25,9 +25,9 @@ COMMANDS:
   EXIT | QUIT - Kills ytBay.
 
 DOWNLOAD:
-  <URL>            - Download the given URL.
-      -V | --VIDEO - Download as video.
-      -A | --AUDIO - Download as audio.
+  <URL>          - Download the given URL.
+    -V | --VIDEO - Download as video.
+    -A | --AUDIO - Download as audio.
 
 FILE MANAGEMENT:
   CHDIR | CD <DIRECTORY> - Change the download path.
@@ -69,7 +69,7 @@ def get_ydl_opts():
         'merge_output_format': 'mp4',
         'postprocessors': [{
             'key': 'FFmpegVideoConvertor',
-            'preferedformat': 'mp4',  # Use the original misspelling as required.
+            'preferedformat': 'mp4',
         }],
     })
 
@@ -85,13 +85,13 @@ def get_ydl_opts():
 
     return video_opts, audio_opts
 
-def download(url, format_flag="-V"):
+def download(url, formatFlag="-V"):
     ydl_opts_video, ydl_opts_audio = get_ydl_opts()
     try:
-        if format_flag in ["-V", "--VIDEO", "-VIDEO"]:
+        if formatFlag in ["-V", "--VIDEO", "-VIDEO"]:
             with yt_dlp.YoutubeDL(ydl_opts_video) as ydl:
                 ydl.download([url])
-        elif format_flag in ["-A", "--AUDIO"]:
+        elif formatFlag in ["-A", "--AUDIO"]:
             with yt_dlp.YoutubeDL(ydl_opts_audio) as ydl:
                 ydl.download([url])
         else:
@@ -103,10 +103,10 @@ if not ffmpegPath:
     ffmpegPath = input("FFMPEG EXECUTABLE LOCATION (USE \\): ")
 
 while True:
-    user_input = input(f"{currentDirectory}$ ").strip()
-    if not user_input:
+    userInput = input(f"{currentDirectory}$ ").strip()
+    if not userInput:
         continue
-    cmd = shlex.split(user_input)
+    cmd = shlex.split(userInput)
     if not cmd:
         continue
     command = cmd[0].upper()
@@ -119,18 +119,18 @@ while True:
             newPath = cmd[1]
             changePath(newPath)
         except IndexError:
-            print("ERROR: GOT NO NEWPATH")
+            print("ERROR: GOT NO NEW PATH")
     elif command in {"HELP"}:
         print(manual)
     else:
         try:
             url = cmd[0]
-            format_flag = cmd[1].upper() if len(cmd) == 2 else None
+            formatFlag = cmd[1].upper() if len(cmd) == 2 else None
 
             if not any(url.lower().startswith(valid) for valid in ["http", "www", "youtube", "music"]):
                 print("ERROR: INVALID URL")
                 continue
 
-            download(url, format_flag="-V")
+            download(url, formatFlag="-V")
         except IndexError:
             print("ERROR: INCORRECT COMMAND FORMAT")
